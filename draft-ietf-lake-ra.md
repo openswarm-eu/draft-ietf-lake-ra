@@ -296,7 +296,7 @@ In the forward EDHOC message flow, Evidence is sent in EDHOC message_3.
 The signature over the Evidence MUST include an attestation binder, which is defined as a cryptographic hash of the first two EDHOC messages.
 
 ~~~~~~~~~~~~~~~~
-attestation_binder = H(message_1, message_2)
+attestation_binder = H(H(message_1), message_2)
 ~~~~~~~~~~~~~~~~
 
 where
