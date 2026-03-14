@@ -398,13 +398,8 @@ The EAD item for an attestation result request is:
 Result_request = bstr .cbor Request_structure
 
 Request_structure = {
-<<<<<<< version04
   selected_verifier: VerfierIdentity,
   ? nonce: bstr .size (8..64)
-=======
-  selected_verifier: VerifierIdentity,
-  ? nonce: bstr .size 8..64
->>>>>>> main
 }
 ~~~~~~~~~~~~~~~~
 
