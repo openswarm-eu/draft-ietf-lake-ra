@@ -124,8 +124,8 @@ EDHOC {{RFC9528}} supports one or more EAD items in each EAD field.
 
 The Attester can act as either the EDHOC Initiator or the EDHOC Responder, depending on the attesting target.
 In the background-check model, the Attester (EDHOC Initiator/IoT device) exchanges evidence with the Relying Party (EDHOC Responder/Network service) during the EDHOC session.
-In the passport model, the Attester (EDHOC Responder/Network servie) exhcnages the attestation result with the Relying Party (EDHOC Initiator/IoT device) during the EDHOC session.
-Section {{attestation-dimensions}} defines three independent dimensions for performing remote attestation over EDHOC:
+In the passport model, the Attester (EDHOC Responder/Network service) exchanges the attestation result with the Relying Party (EDHOC Initiator/IoT device) during the EDHOC session.
+{{attestation-dimensions}} defines three independent dimensions for performing remote attestation over EDHOC:
 
   1. Target (see {{iot}}, {{net}}) defining the entity that undergoes the attestation process (IoT device or network service).
   2. Model (see {{bg}}, {{pp}}) defining the attestation model in use based on the RATS architecture (background-check model or passport model).
