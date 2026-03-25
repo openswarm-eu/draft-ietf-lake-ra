@@ -461,7 +461,8 @@ The Relying Party generates EAD_2 with the received evidence type and nonce from
 The Attester sends the Evidence to the Relying Party in EAD_3.
 The Verifier evaluates the Evidence and sends the Attestation result to the Relying Party.
 
-~~~~~~~~~~~ aasvg
+~~~~aasvg
+
 +--------------------------------+               +-------------------+
 |         EDHOC Initiator        |               |  EDHOC Responder  |
 +--------------------------------+               +-------------------+             +----------+
@@ -501,8 +502,7 @@ The Verifier evaluates the Evidence and sends the Attestation result to the Rely
    |                        |       application data       |                             |
    |                        |<---------------------------->|                             |
    |                        |                              |                             |
-
-~~~~~~~~~~~
+~~~~
 {: #fig-iot-bg-fwd title="Overview of IoT device attestation in background-check model and EDHOC forward message flow. EDHOC is used between A and RP." artwork-align="center"}
 
 ## (R, PP): Network Service Attestation {#network-attestation}
