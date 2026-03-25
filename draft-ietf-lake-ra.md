@@ -461,7 +461,7 @@ The Relying Party generates EAD_2 with the received evidence type and nonce from
 The Attester sends the Evidence to the Relying Party in EAD_3.
 The Verifier evaluates the Evidence and sends the Attestation result to the Relying Party.
 
-~~~~aasvg
+~~~~
 
 +--------------------------------+               +-------------------+
 |         EDHOC Initiator        |               |  EDHOC Responder  |
@@ -524,7 +524,7 @@ How the Attester negotiates with the selected Verifier to get the attestation re
 A fourth EDHOC message is required to send the Result from the Attester to the Relying Party.
 
 
-~~~~~~~~~~~ aasvg
+~~~~~~~~~~~
 +-----------------+          +-----------------+
 | EDHOC Initiator |          | EDHOC Responder |
 +-----------------+          +-----------------+            +----------+
@@ -572,7 +572,7 @@ EAD_2 carries the EAD items Attestation request and Result proposal.
 EAD_3 carries the EAD items Evidence and Result request.
 EAD_4 carries the EAD item Result for the passport model.
 
-~~~~~~~~~~~ aasvg
+~~~~~~~~~~~
 +-----------------+               +-----------------+
 |   IoT device    |               | Network service |
 +-----------------+               +-----------------+
@@ -686,7 +686,7 @@ IANA is requested to register the following entry in the "EDHOC External Authori
 * The ead_label = TBD3 corresponds to the EAT item trigger_bg as specified in {{trigger-bg}}.
 * The ead_label = TBD4 corresponds to the EAT item trigger_pp as specified in {{trigger-pp}}.
 
-~~~~~~~~~~~ aasvg
+~~~~~~~~~~~
 +-----------+-------+------------------------+-------------------+
 | Name      | Label | Description            | Reference         |
 +===========+=======+========================+===================+
