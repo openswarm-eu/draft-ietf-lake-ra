@@ -45,6 +45,7 @@ informative:
     RFC5869:
     I-D.ietf-iotops-7228bis:
     I-D.ietf-rats-corim:
+    I-D.ietf-lake-edhoc-psk:
     IANA.CWT.Claims: IANA.cwt
     IANA-CoAP-Content-Formats:
       title: CoAP Content-Formats
@@ -707,10 +708,14 @@ IANA is requested to register the following entry in the "EDHOC External Authori
 
 --- back
 
-# Example: Firmware Version {#firmware}
+# Example: Device Onboarding: Firmware Version Check {#firmware}
 
-The goal in this example is to verify that the firmware running on the device is the latest version, and is neither tampered or compromised.
-A device acts as the Attester, currently in an untrusted state.
+The goal in this device onboarding example is to verify that the firmware running on the device is the latest version, and is neither tampered or compromised.
+The objective of onboarding is both authentication and integrity verification.
+If either one is compromised, the objective fails.
+In particular, if the attestation private key is leaked, the device firmware can no longer be trusted, so the value of valid authentication is significantly reduced.
+
+In this example, a device acts as the Attester, currently in an untrusted state.
 The Attester needs to generate the evidence to attest itself.
 A gateway that can communicate with the Attester and can control its access to the network acts as the Relying Party.
 The gateway will finally decide whether the device can join the network or not depending on the attestation result.
@@ -821,20 +826,23 @@ DFC38558950D
 The Relying Party (co-located with the gateway) then treats the Evidence as opaque and sends it together with the hash value of the first two EDHOC messages to the Verifier.
 Once the Verifier sends back the Attestation Result, the Relying Party can be assured on the version of the firmware that the device is running.
 
-# Post-handshake Attestation over OSCORE
+# Re-attestation
+
+The trust relationship established during the initial EDHOC exchange may become outdated over time due to changes in device state.
+To maintain a valid trust relationship, a peer may require updated assurance periodically.
+This section presents two re-attestation approaches: re-attestation during EDHOC resumption and re-attestation using OSCORE.
+
+## Intra-handshake Re-attestation using EDHOC Resumption with PSK
+
+An approach that is more lightweight than running the same EDHOC protocol again is to run session resumption using EDHOC-PSK, which is defined in {{Section 6 of I-D.ietf-lake-edhoc-psk}}.
+
+## Post-handshake Re-attestation using OSCORE
 
 Beyond the intra-handshake attestation defined in this document, remote attestation after an EDHOC session can be performed via post-handshake attestation over Object Security for Constrained RESTful Environments (OSCORE) {{RFC8613}}.
 OSCORE provides application-layer protection for the Constrained Application Protocol (CoAP) using CBOR Object Signing and Encryption (COSE).
 As specified in {{RFC9668}}, EDHOC can run over CoAP to establish a Security Context for OSCORE.
 
-Post-handshake attestation decouples attestation process from the initial handshake, enabling continuous attestation throughout the session lifetime and guaranteeing the runtime integrity.
-
-
-## Mapping Attestation to OSCORE
-
-This section outlines how remote attestation is performed in the background-check model over OSCORE.
-
-EDITOR NOTE: put a figure
+Post-handshake attestation decouples attestation process from the initial handshake, enabling re-attestation throughout the session lifetime and guaranteeing the runtime integrity.
 
 ### Flight 1
 
