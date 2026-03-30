@@ -834,13 +834,14 @@ This section presents two re-attestation approaches: re-attestation during EDHOC
 
 ## Intra-handshake Re-attestation using EDHOC Resumption with PSK
 
-An approach that is more lightweight than running the same EDHOC protocol again is to run session resumption using EDHOC-PSK, which is defined in {{Section 6 of I-D.ietf-lake-edhoc-psk}}.
+Remote attestation can be applied during EDHOC session resumption using EDHOC-PSK, as defined in {{Section 6 of I-D.ietf-lake-edhoc-psk}}.
+This enables re-attestation without public key based authentication.
 
 ## Post-handshake Re-attestation using OSCORE
 
-Beyond the intra-handshake attestation defined in this document, remote attestation after an EDHOC session can be performed via post-handshake attestation over Object Security for Constrained RESTful Environments (OSCORE) {{RFC8613}}.
-OSCORE provides application-layer protection for the Constrained Application Protocol (CoAP) using CBOR Object Signing and Encryption (COSE).
-As specified in {{RFC9668}}, EDHOC can run over CoAP to establish a Security Context for OSCORE.
+Post-handshake attestation can be performed after an EDHOC session using Object Security for Constrained RESTful Environments (OSCORE) {{RFC8613}}.
+EDHOC is then used to establish an OSCORE Security Context, as specified in {{RFC9668}}.
+OSCORE provides application-layer protection for RESTful message exchanges, for example the Constrained Application Protocol (CoAP), which can be used to carry attestation information.
 
 Post-handshake attestation decouples attestation process from the initial handshake, enabling re-attestation throughout the session lifetime and guaranteeing the runtime integrity.
 
