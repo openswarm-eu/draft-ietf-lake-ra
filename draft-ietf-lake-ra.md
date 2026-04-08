@@ -302,16 +302,16 @@ When Evidence is sent in EDHOC message_3 in EAD_3, the attestation binder is com
 ~~~~~~~~~~~~~~~~
 attestation_binder_m3 = HKDF-Expand(0, attest_info, hash_length)
 
-attest_info = (H_12, "attestation", ID_CRED_I)
+attest_info = [ H_12, "attestation", ID_CRED_I ]
 
 H_12 = H(H(message_1), message_2)
 ~~~~~~~~~~~~~~~~
 
 where
 
-* H() is the EDHOC hash algorithm of the selected cipher suite.
 * hash_length is the length of the output size of the selected EDHOC hash algorithm.
-
+* attest_info is a CBOR array containing H_12, the text string "attestation" and ID_CRED_I.
+* H() is the EDHOC hash algorithm of the selected cipher suite.
 
 When Evidence is sent in EDHOC message_4, the attestation binder is derived using EDHOC_Exporter defined in {{RFC9528}}.
 
@@ -336,7 +336,7 @@ where
 
 * body_protected is the same CBOR byte string as the protected header in COSE_Sign1
 * external_aad is set to attestation_binder_m3 when Evidence is carried in EDHOC message_3, and to attestation_binder_m4 when Evidence is carried in EDHOC message_4
-* payolad is the same CBOR byte string as the payload in COSE_Sign1
+* payload is the same CBOR byte string as the payload in COSE_Sign1
 
 ### trigger_bg {#trigger-bg}
 
@@ -469,7 +469,7 @@ The Verifier evaluates the Evidence and sends the Attestation result to the Rely
 A common use case for (I, BG) is to attest an IoT device (EDHOC Initiator) to a network server (EDHOC Responder).
 For example, a simple illustrative example is performing remote attestation to verify that the latest version of firmware is running on the IoT device before the network server allows it to join the network (see {{firmware}}).
 
-~~~~
+~~~~ aasvg
 
 +--------------------------------+               +-------------------+
 |  Constrained EDHOC Initiator   |               |  EDHOC Responder  |
@@ -532,7 +532,7 @@ A fourth EDHOC message is required to send the Result from the Attester to the R
 One use case for (R, PP) is when a network server (EDHOC Responder) needs to attest itself to a client (e.g., an IoT device (EDHOC Initiator)).
 For example, the client needs to send some sensitive data to the network server, which requires the network server to be attested first.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
 +-----------------------------+        +-----------------+
 | Constrained EDHOC Initiator |        | EDHOC Responder |
 +-----------------------------+        +-----------------+          +--------------+
@@ -580,7 +580,7 @@ The Relying Party forwards the Evidence to the Verifier and receives an Attestat
 Note that this is a post-handshake attestation since EDHOC completes the authenticated key exchange after message_3.
 Therefore, the attestation binder in this instantiation is derived using EDHOC_Exporter (see {{attestation-binder}}).
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
                          +-------------------+               +--------------------------------+
                          |  EDHOC Initiator  |               |  Constrained EDHOC Responder   |
 +----------+             +-------------------+               +--------------------------------+
@@ -644,7 +644,7 @@ The Attester interacts with the selected Verifier to obtain an Attestation Resul
 How the Attester negotiates with the selected Verifier to get the attestation result is out of scope of this specification.
 The Attester then returns the Result in EAD_3 of message_3, after which the Relying Party can decide whether to continue with application data exchange.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
                        +-----------------+         +-----------------------------+
                        | EDHOC Initiator |         | Constrained EDHOC Responder |
 +--------------+       +-----------------+         +-----------------------------+
@@ -667,7 +667,7 @@ The Attester then returns the Result in EAD_3 of message_3, after which the Rely
         |                       +-------------------------------->|
         |                       |   EAD_3 = Result                |
         |                       |   { EAT }                       |
-        |                       |                                 |i
+        |                       |                                 |
 ~~~~~~~~~~~
 {: #fig-i-pp title="Overview of EDHOC Initiator attestation in passport model. EDHOC is used between A and RP." artwork-align="center"}
 
@@ -689,7 +689,7 @@ EAD_2 carries the EAD items Attestation request and Result proposal.
 EAD_3 carries the EAD items Evidence and Result request.
 EAD_4 carries the EAD item Result for the passport model.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
 +-----------------------------+             +-----------------+
 | Constrained EDHOC Initiator |             | EDHOC Responder |
 +-----------------------------+             +-----------------+             +------------+              +------------+
